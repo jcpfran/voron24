@@ -1,0 +1,29 @@
+####################################################################################
+##                          Gantry Leveling Settings
+####################################################################################
+[quad_gantry_level]
+gantry_corners:                          # Coordinates for the gantry corners
+	-60,-10
+	360,370
+points:
+	50,25
+	50,225
+	250,225
+	250,25
+speed: 100                               # Levelling speed in mm/min 500
+horizontal_move_z: 2                     # Z-axis height for horizontal moves
+retries: 5                               # Number of retries for out-of-tolerance adjustments
+retry_tolerance: 0.0075                  # Tolerance for retrying 0.01
+max_adjust: 10                           # Maximum adjustment stroke for leveling
+
+#--------------------------------------------------------------------
+
+[gcode_macro G32]
+gcode:
+    BED_MESH_CLEAR                       # Clear bed mesh data
+    G28                                  # Home all axes
+    QUAD_GANTRY_LEVEL                    # Perform gantry leveling
+    G28                                  # Home all axes again
+    G0 X150 Y150 Z30 F3600               # Move to a position (adjust for 300mm or 350mm models)
+    
+#--------------------------------------------------------------------
